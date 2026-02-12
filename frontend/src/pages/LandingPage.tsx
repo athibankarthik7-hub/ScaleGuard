@@ -1,48 +1,18 @@
 import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Activity, Zap, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const AnimatedSphere = () => {
-    const meshRef = useRef<any>(null);
-    useFrame((state) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.2;
-            meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.3;
-        }
-    });
-
-    return (
-        <Sphere visible args={[1, 100, 200]} scale={2.5} ref={meshRef}>
-            <MeshDistortMaterial
-                color="#3b82f6"
-                attach="material"
-                distort={0.4} // Strength, 0 disables the effect (default=1)
-                speed={1.5} // Speed (default=1)
-                roughness={0.2}
-                metalness={0.9}
-            />
-        </Sphere>
-    );
-};
+import Hyperspeed, { hyperspeedPresets } from '../components/Hyperspeed';
 
 const LandingPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="relative w-full h-screen bg-background overflow-hidden flex flex-col items-center justify-center text-white">
-            <div className="absolute inset-0 z-0 opacity-40">
-                <Canvas>
-                    <ambientLight intensity={0.5} />
-                    <directionalLight position={[10, 10, 5]} intensity={1} />
-                    <AnimatedSphere />
-                    <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
-                </Canvas>
+        <div style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', overflow: 'hidden', background: '#000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+            <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 1 }}>
+                <Hyperspeed effectOptions={hyperspeedPresets.one} />
             </div>
-
-            <div className="z-10 text-center px-6 max-w-4xl relative">
+            <div className="relative text-center px-6 max-w-4xl" style={{ zIndex: 10 }}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

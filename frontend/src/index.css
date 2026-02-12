@@ -9,7 +9,19 @@
 
 @layer base {
   body {
-    @apply bg-background text-white font-sans overflow-hidden;
+    @apply text-white font-sans;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    background: #000;
   }
 }
 
