@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { LayoutDashboard, Network, PlayCircle, Activity } from 'lucide-react';
+import { LayoutDashboard, Network, PlayCircle, Activity, Upload } from 'lucide-react';
 import AIProviderSwitcher from './AIProviderSwitcher';
 
 const Layout = () => {

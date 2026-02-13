@@ -1,0 +1,189 @@
+{
+    "nodes": [
+        {
+            "id": "web-app",
+            "name": "Web Application",
+            "type": "service",
+            "tier": "frontend",
+            "status": "healthy",
+            "cpu_usage": 25.5,
+            "memory_usage": 42.0,
+            "latency": 45.0,
+            "rpm": 850,
+            "error_rate": 0.3,
+            "connection_pool_usage": 0.0,
+            "queue_depth": 0,
+            "centrality_score": 0.0
+        },
+        {
+            "id": "api-gateway",
+            "name": "API Gateway",
+            "type": "gateway",
+            "tier": "backend",
+            "status": "healthy",
+            "cpu_usage": 30.0,
+            "memory_usage": 35.0,
+            "latency": 20.0,
+            "rpm": 2000,
+            "error_rate": 0.5,
+            "connection_pool_usage": 0.0,
+            "queue_depth": 15,
+            "centrality_score": 0.0
+        },
+        {
+            "id": "user-service",
+            "name": "User Service",
+            "type": "service",
+            "tier": "backend",
+            "status": "healthy",
+            "cpu_usage": 40.0,
+            "memory_usage": 50.0,
+            "latency": 35.0,
+            "rpm": 500,
+            "error_rate": 1.0,
+            "connection_pool_usage": 0.0,
+            "queue_depth": 25,
+            "centrality_score": 0.0
+        },
+        {
+            "id": "order-service",
+            "name": "Order Service",
+            "type": "service",
+            "tier": "backend",
+            "status": "healthy",
+            "cpu_usage": 55.0,
+            "memory_usage": 60.0,
+            "latency": 50.0,
+            "rpm": 400,
+            "error_rate": 1.5,
+            "connection_pool_usage": 0.0,
+            "queue_depth": 40,
+            "centrality_score": 0.0
+        },
+        {
+            "id": "payment-service",
+            "name": "Payment Service",
+            "type": "service",
+            "tier": "backend",
+            "status": "healthy",
+            "cpu_usage": 45.0,
+            "memory_usage": 48.0,
+            "latency": 80.0,
+            "rpm": 200,
+            "error_rate": 0.8,
+            "connection_pool_usage": 0.0,
+            "queue_depth": 10,
+            "centrality_score": 0.0
+        },
+        {
+            "id": "postgres-db",
+            "name": "PostgreSQL Database",
+            "type": "database",
+            "tier": "data",
+            "status": "healthy",
+            "cpu_usage": 65.0,
+            "memory_usage": 75.0,
+            "latency": 10.0,
+            "rpm": 1500,
+            "error_rate": 0.1,
+            "connection_pool_usage": 70.0,
+            "queue_depth": 0,
+            "centrality_score": 0.0
+        },
+        {
+            "id": "redis-cache",
+            "name": "Redis Cache",
+            "type": "cache",
+            "tier": "data",
+            "status": "healthy",
+            "cpu_usage": 20.0,
+            "memory_usage": 60.0,
+            "latency": 2.0,
+            "rpm": 3000,
+            "error_rate": 0.05,
+            "connection_pool_usage": 40.0,
+            "queue_depth": 0,
+            "centrality_score": 0.0
+        },
+        {
+            "id": "stripe-api",
+            "name": "Stripe API",
+            "type": "external",
+            "tier": "external",
+            "status": "healthy",
+            "cpu_usage": 0.0,
+            "memory_usage": 0.0,
+            "latency": 150.0,
+            "rpm": 200,
+            "error_rate": 0.2,
+            "connection_pool_usage": 0.0,
+            "queue_depth": 5,
+            "centrality_score": 0.0
+        }
+    ],
+    "edges": [
+        {
+            "source": "web-app",
+            "target": "api-gateway",
+            "type": "http",
+            "latency": 5.0,
+            "throughput": 850
+        },
+        {
+            "source": "api-gateway",
+            "target": "user-service",
+            "type": "http",
+            "latency": 3.0,
+            "throughput": 500
+        },
+        {
+            "source": "api-gateway",
+            "target": "order-service",
+            "type": "http",
+            "latency": 4.0,
+            "throughput": 400
+        },
+        {
+            "source": "user-service",
+            "target": "postgres-db",
+            "type": "tcp",
+            "latency": 2.0,
+            "throughput": 500
+        },
+        {
+            "source": "user-service",
+            "target": "redis-cache",
+            "type": "tcp",
+            "latency": 1.0,
+            "throughput": 800
+        },
+        {
+            "source": "order-service",
+            "target": "payment-service",
+            "type": "http",
+            "latency": 5.0,
+            "throughput": 200
+        },
+        {
+            "source": "order-service",
+            "target": "postgres-db",
+            "type": "tcp",
+            "latency": 2.0,
+            "throughput": 400
+        },
+        {
+            "source": "payment-service",
+            "target": "stripe-api",
+            "type": "http",
+            "latency": 100.0,
+            "throughput": 200
+        },
+        {
+            "source": "payment-service",
+            "target": "postgres-db",
+            "type": "tcp",
+            "latency": 2.0,
+            "throughput": 200
+        }
+    ]
+}

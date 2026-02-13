@@ -19,11 +19,11 @@ const LandingPage = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <div className="flex items-center justify-center mb-6">
-                        <div className="w-12 h-12 bg-gradient-to-tr from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg shadow-primary/40">
+                        <div className="w-12 h-12 bg-gradient-to-tr from-pink-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-pink-500/40">
                             <Activity className="w-7 h-7 text-white" />
                         </div>
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-pulse-slow">
+                    <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-cyan-500 animate-pulse-slow">
                         ScaleGuard
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
