@@ -1,0 +1,2108 @@
+{
+  "metadata": {
+    "total_examples": 50,
+    "service_types": [
+      "database",
+      "api",
+      "cache",
+      "queue",
+      "external",
+      "compute"
+    ],
+    "severities": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "generated_by": "ScaleGuard Training Data Generator"
+  },
+  "examples": [
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 60.445523946357454,
+          "total_services": 15,
+          "critical_count": 0,
+          "service_types": [
+            "database",
+            "external",
+            "queue",
+            "api"
+          ],
+          "time_context": "normal",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "User DB",
+            "type": "database",
+            "cpu_usage": 63.6876916574548,
+            "memory_usage": 67.02577961201924,
+            "risk_score": 60.445523946357454,
+            "reason": "High CPU usage (63.7%)",
+            "centrality": 0.2871180106712973
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 60.4/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: User DB (database)\n- High CPU usage (63.7%)\n- Centrality score: 0.29 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Immediate Actions Required:**\n1. Review database performance metrics\n2. Optimize query patterns and indexing\n3. Consider read replica for load distribution\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale User DB: Add 2-3 read replicas immediately",
+        "Optimize User DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 54.69141094840998,
+          "total_services": 20,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "compute",
+            "external",
+            "queue",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Search API",
+            "type": "api",
+            "cpu_usage": 59.853279181214276,
+            "memory_usage": 30.894087397551115,
+            "risk_score": 54.69141094840998,
+            "reason": "Response time spikes",
+            "centrality": 0.690459259477536
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 54.7/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Search API (api)\n- Response time spikes\n- Centrality score: 0.69 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Immediate Actions Required:**\n1. Review API performance bottlenecks\n2. Optimize resource-intensive operations\n3. Add monitoring for response times\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Search API: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Search API data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 59.415107114490276,
+          "total_services": 19,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "external",
+            "compute",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "CDN Cache",
+            "type": "cache",
+            "cpu_usage": 36.60928357277909,
+            "memory_usage": 77.15121435142404,
+            "risk_score": 56.415107114490276,
+            "reason": "Memory high (77.2%); Cache misses",
+            "centrality": 0.505170881171457
+          }
+        ],
+        "cascading_failures": [
+          "Recommendation Engine"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 59.4/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: CDN Cache (cache)\n- Memory high (77.2%); Cache misses\n- Centrality score: 0.51 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 1 services affected: Recommendation Engine\n\n**Immediate Actions Required:**\n1. Scale CDN Cache capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale CDN Cache: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for CDN Cache",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 57.17060908440155,
+          "total_services": 8,
+          "critical_count": 0,
+          "service_types": [
+            "external",
+            "compute",
+            "queue",
+            "api"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Event Bus",
+            "type": "queue",
+            "cpu_usage": 47.30095686775093,
+            "memory_usage": 47.27525883843382,
+            "risk_score": 57.17060908440155,
+            "reason": "Scaling issues",
+            "centrality": 0.42560828819383456
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 57.2/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Event Bus (queue)\n- Scaling issues\n- Centrality score: 0.43 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Immediate Actions Required:**\n1. Scale Event Bus capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Event Bus: Increase capacity by 100%",
+        "Optimize Event Bus: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Event Bus",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 51.6685137448551,
+          "total_services": 19,
+          "critical_count": 0,
+          "service_types": [
+            "external",
+            "compute",
+            "queue"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Email Service",
+            "type": "external",
+            "cpu_usage": 33.24693943789606,
+            "memory_usage": 50.356082643367905,
+            "risk_score": 51.6685137448551,
+            "reason": "Scaling issues",
+            "centrality": 0.6958650592352822
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 51.7/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Email Service (external)\n- Scaling issues\n- Centrality score: 0.70 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Immediate Actions Required:**\n1. Scale Email Service capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Email Service: Increase capacity by 100%",
+        "Optimize Email Service: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Email Service",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 48.43295801584485,
+          "total_services": 10,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "compute",
+            "external",
+            "queue",
+            "database"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Minor performance impact - Optimization opportunity for better efficiency"
+        },
+        "bottlenecks": [
+          {
+            "name": "Image Processing",
+            "type": "compute",
+            "cpu_usage": 41.91939508594869,
+            "memory_usage": 39.11836799015698,
+            "risk_score": 45.43295801584485,
+            "reason": "Scaling issues",
+            "centrality": 0.4267442881093624
+          }
+        ],
+        "cascading_failures": [
+          "Inventory System"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd27 **OPTIMIZATION NEEDED** - System health score: 48.4/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Image Processing (compute)\n- Scaling issues\n- Centrality score: 0.43 (medium impact component)\n\n**Business Impact:** Minor performance impact - Optimization opportunity for better efficiency\n\n**Cascade Analysis:** 1 services affected: Inventory System\n\n**Immediate Actions Required:**\n1. Scale Image Processing capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Image Processing: Increase capacity by 100%",
+        "Optimize Image Processing: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Image Processing",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 90.2915119929974,
+          "total_services": 8,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "external"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Primary DB",
+            "type": "database",
+            "cpu_usage": 80.87415929500762,
+            "memory_usage": 82.26413212623613,
+            "risk_score": 87.2915119929974,
+            "reason": "CPU overload (80.9%); Memory high (82.3%)",
+            "centrality": 0.7978318542477135
+          }
+        ],
+        "cascading_failures": [
+          "User Profile API"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 90.3/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Primary DB (database)\n- CPU overload (80.9%); Memory high (82.3%)\n- Centrality score: 0.80 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 1 services affected: User Profile API\n\n**Immediate Actions Required:**\n1. Scale database horizontally (add read replicas)\n2. Optimize slow queries and add proper indexing\n3. Implement connection pooling optimization\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Primary DB: Add 2-3 read replicas immediately",
+        "Optimize Primary DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 74.8360553975703,
+          "total_services": 15,
+          "critical_count": 0,
+          "service_types": [
+            "queue",
+            "database",
+            "external",
+            "api"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Payment API",
+            "type": "api",
+            "cpu_usage": 58.21280039458964,
+            "memory_usage": 68.4088374725893,
+            "risk_score": 68.8360553975703,
+            "reason": "",
+            "centrality": 0.713435700228699
+          }
+        ],
+        "cascading_failures": [
+          "Frontend Application",
+          "Analytics Pipeline"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 74.8/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Payment API (api)\n- \n- Centrality score: 0.71 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 2 services affected: Frontend Application, Analytics Pipeline\n\n**Immediate Actions Required:**\n1. Review API performance bottlenecks\n2. Optimize resource-intensive operations\n3. Add monitoring for response times\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Payment API: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Payment API data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 72.74194240859936,
+          "total_services": 11,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "database",
+            "external"
+          ],
+          "time_context": "normal",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Application Cache",
+            "type": "cache",
+            "cpu_usage": 44.74866999273575,
+            "memory_usage": 83.40130477597411,
+            "risk_score": 66.74194240859936,
+            "reason": "Memory high (83.4%)",
+            "centrality": 0.31969021329899305
+          }
+        ],
+        "cascading_failures": [
+          "Search API",
+          "Recommendation Engine"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 72.7/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Application Cache (cache)\n- Memory high (83.4%)\n- Centrality score: 0.32 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 2 services affected: Search API, Recommendation Engine\n\n**Immediate Actions Required:**\n1. Scale Application Cache capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Application Cache: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Application Cache",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 70.90016945756264,
+          "total_services": 8,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "api",
+            "queue"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Task Queue",
+            "type": "queue",
+            "cpu_usage": 62.923329009529375,
+            "memory_usage": 61.499955056999106,
+            "risk_score": 64.90016945756264,
+            "reason": "High CPU usage (62.9%); Performance degradation",
+            "centrality": 0.6032341186256447
+          }
+        ],
+        "cascading_failures": [
+          "Inventory System",
+          "Order Management"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 70.9/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Task Queue (queue)\n- High CPU usage (62.9%); Performance degradation\n- Centrality score: 0.60 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 2 services affected: Inventory System, Order Management\n\n**Immediate Actions Required:**\n1. Scale Task Queue capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Task Queue: Increase capacity by 100%",
+        "Optimize Task Queue: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Task Queue",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 63.96365724521067,
+          "total_services": 9,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "external",
+            "compute",
+            "queue"
+          ],
+          "time_context": "normal",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Analytics Service",
+            "type": "external",
+            "cpu_usage": 54.61908814458347,
+            "memory_usage": 64.93047035256588,
+            "risk_score": 60.96365724521067,
+            "reason": "Resource contention",
+            "centrality": 0.4367767183105905
+          }
+        ],
+        "cascading_failures": [
+          "Search Index"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 64.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Analytics Service (external)\n- Resource contention\n- Centrality score: 0.44 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 1 services affected: Search Index\n\n**Immediate Actions Required:**\n1. Scale Analytics Service capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Analytics Service: Increase capacity by 100%",
+        "Optimize Analytics Service: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Analytics Service",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 65.00839153436885,
+          "total_services": 14,
+          "critical_count": 0,
+          "service_types": [
+            "database",
+            "compute",
+            "cache"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Worker Nodes",
+            "type": "compute",
+            "cpu_usage": 61.634446156099195,
+            "memory_usage": 60.103658274123944,
+            "risk_score": 59.008391534368855,
+            "reason": "High CPU usage (61.6%); Resource contention",
+            "centrality": 0.48682507350268156
+          }
+        ],
+        "cascading_failures": [
+          "Email Service",
+          "User Profile API"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 65.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Worker Nodes (compute)\n- High CPU usage (61.6%); Resource contention\n- Centrality score: 0.49 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 2 services affected: Email Service, User Profile API\n\n**Immediate Actions Required:**\n1. Scale Worker Nodes capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Worker Nodes: Increase capacity by 100%",
+        "Optimize Worker Nodes: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Worker Nodes",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 96.64965767382374,
+          "total_services": 9,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Analytics DB",
+            "type": "database",
+            "cpu_usage": 88.99895486740074,
+            "memory_usage": 80.48840271514612,
+            "risk_score": 90.64965767382374,
+            "reason": "CPU overload (89.0%); Memory high (80.5%)",
+            "centrality": 0.3652887777445637
+          }
+        ],
+        "cascading_failures": [
+          "Session Manager",
+          "Payment Processing"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 96.6/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Analytics DB (database)\n- CPU overload (89.0%); Memory high (80.5%)\n- Centrality score: 0.37 (medium impact component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 2 services affected: Session Manager, Payment Processing\n\n**Immediate Actions Required:**\n1. Scale database horizontally (add read replicas)\n2. Optimize slow queries and add proper indexing\n3. Implement connection pooling optimization\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Analytics DB: Add 2-3 read replicas immediately",
+        "Optimize Analytics DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 92.42105618921525,
+          "total_services": 8,
+          "critical_count": 1,
+          "service_types": [
+            "queue",
+            "external",
+            "compute",
+            "api"
+          ],
+          "time_context": "normal",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "User API",
+            "type": "api",
+            "cpu_usage": 89.0402340216449,
+            "memory_usage": 62.47205620129578,
+            "risk_score": 80.42105618921525,
+            "reason": "CPU overload (89.0%); Response time spikes",
+            "centrality": 0.5376372688373339
+          },
+          {
+            "name": "ML Pipeline",
+            "type": "compute",
+            "cpu_usage": 52.2789993240536,
+            "memory_usage": 40.70835612905549,
+            "risk_score": 49.65679955563373,
+            "reason": "Scaling issues",
+            "centrality": 0.3753405149462882
+          }
+        ],
+        "cascading_failures": [
+          "Frontend Application",
+          "Notification Service",
+          "Analytics Pipeline",
+          "Search Index"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 92.4/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: User API (api)\n- CPU overload (89.0%); Response time spikes\n- Centrality score: 0.54 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 4 services affected: Frontend Application, Notification Service, Analytics Pipeline\n\n**Immediate Actions Required:**\n1. Scale API instances horizontally\n2. Implement circuit breakers for dependencies\n3. Add caching layer for frequent requests\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale User API: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for User API data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 72.68164773019046,
+          "total_services": 19,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "external"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Application Cache",
+            "type": "cache",
+            "cpu_usage": 58.04847082135178,
+            "memory_usage": 83.86006876073989,
+            "risk_score": 66.68164773019046,
+            "reason": "Memory high (83.9%)",
+            "centrality": 0.5558299694122065
+          },
+          {
+            "name": "Analytics Service",
+            "type": "external",
+            "cpu_usage": 48.33749179956763,
+            "memory_usage": 35.23329405169423,
+            "risk_score": 43.67979617576956,
+            "reason": "Resource contention",
+            "centrality": 0.6978221612549895
+          }
+        ],
+        "cascading_failures": [
+          "Profile API",
+          "Recommendation Engine"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 72.7/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Application Cache (cache)\n- Memory high (83.9%)\n- Centrality score: 0.56 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 2 services affected: Profile API, Recommendation Engine\n\n**Immediate Actions Required:**\n1. Scale Application Cache capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Application Cache: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Application Cache",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 83.79233682915743,
+          "total_services": 16,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "compute",
+            "external",
+            "queue",
+            "database"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Significant performance degradation - Customer experience impacted"
+        },
+        "bottlenecks": [
+          {
+            "name": "Task Queue",
+            "type": "queue",
+            "cpu_usage": 78.40024961206649,
+            "memory_usage": 77.16280049174655,
+            "risk_score": 77.79233682915743,
+            "reason": "High CPU usage (78.4%); Memory high (77.2%)",
+            "centrality": 0.3997474223757911
+          }
+        ],
+        "cascading_failures": [
+          "Email Service",
+          "Order Management"
+        ]
+      },
+      "expected_analysis": "\ud83d\udea8 **HIGH RISK DETECTED** - System health score: 83.8/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Task Queue (queue)\n- High CPU usage (78.4%); Memory high (77.2%)\n- Centrality score: 0.40 (medium impact component)\n\n**Business Impact:** Significant performance degradation - Customer experience impacted\n\n**Cascade Analysis:** 2 services affected: Email Service, Order Management\n\n**Immediate Actions Required:**\n1. Scale Task Queue capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Task Queue: Increase capacity by 100%",
+        "Optimize Task Queue: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Task Queue",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 90.11693110810513,
+          "total_services": 18,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "compute",
+            "external",
+            "database",
+            "api"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "REVENUE AT RISK - Customer transactions failing, immediate escalation required"
+        },
+        "bottlenecks": [
+          {
+            "name": "Email Service",
+            "type": "external",
+            "cpu_usage": 84.2331275649218,
+            "memory_usage": 89.010784986465,
+            "risk_score": 84.11693110810513,
+            "reason": "CPU overload (84.2%); Memory critical (89.0%); Resource contention",
+            "centrality": 0.3710713390251592
+          },
+          {
+            "name": "Video Encoder",
+            "type": "compute",
+            "cpu_usage": 50.99383408694597,
+            "memory_usage": 48.68624136013801,
+            "risk_score": 52.72524747347175,
+            "reason": "Scaling issues",
+            "centrality": 0.6830127530797768
+          }
+        ],
+        "cascading_failures": [
+          "User Profile API",
+          "Recommendation Engine"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 90.1/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Email Service (external)\n- CPU overload (84.2%); Memory critical (89.0%); Resource contention\n- Centrality score: 0.37 (medium impact component)\n\n**Business Impact:** REVENUE AT RISK - Customer transactions failing, immediate escalation required\n\n**Cascade Analysis:** 2 services affected: User Profile API, Recommendation Engine\n\n**Immediate Actions Required:**\n1. Scale Email Service capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Email Service: Increase capacity by 100%",
+        "Optimize Email Service: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Email Service",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 94.71802304562154,
+          "total_services": 12,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "compute",
+            "external",
+            "queue",
+            "database"
+          ],
+          "time_context": "normal",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Batch Processor",
+            "type": "compute",
+            "cpu_usage": 84.84419493125371,
+            "memory_usage": 71.06222606457814,
+            "risk_score": 85.71802304562154,
+            "reason": "CPU overload (84.8%); Memory high (71.1%); Scaling issues",
+            "centrality": 0.3941307576996206
+          }
+        ],
+        "cascading_failures": [
+          "Payment Processing",
+          "Notification Service",
+          "Inventory System"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 94.7/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Batch Processor (compute)\n- CPU overload (84.8%); Memory high (71.1%); Scaling issues\n- Centrality score: 0.39 (medium impact component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 3 services affected: Payment Processing, Notification Service, Inventory System\n\n**Immediate Actions Required:**\n1. Scale Batch Processor capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Batch Processor: Increase capacity by 100%",
+        "Optimize Batch Processor: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Batch Processor",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 20,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "external",
+            "cache"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "REVENUE AT RISK - Customer transactions failing, immediate escalation required"
+        },
+        "bottlenecks": [
+          {
+            "name": "Cache DB",
+            "type": "database",
+            "cpu_usage": 96.83745140064528,
+            "memory_usage": 82.93529810839213,
+            "risk_score": 97.37303759049821,
+            "reason": "CPU overload (96.8%); Memory high (82.9%)",
+            "centrality": 0.4266944370480714
+          }
+        ],
+        "cascading_failures": [
+          "Authentication Service",
+          "Payment Processing",
+          "Order Management",
+          "Session Manager"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Cache DB (database)\n- CPU overload (96.8%); Memory high (82.9%)\n- Centrality score: 0.43 (medium impact component)\n\n**Business Impact:** REVENUE AT RISK - Customer transactions failing, immediate escalation required\n\n**Cascade Analysis:** 4 services affected: Authentication Service, Payment Processing, Order Management\n\n**Immediate Actions Required:**\n1. Scale database horizontally (add read replicas)\n2. Optimize slow queries and add proper indexing\n3. Implement connection pooling optimization\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Cache DB: Add 2-3 read replicas immediately",
+        "Optimize Cache DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 12,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "cache",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Auth Service",
+            "type": "api",
+            "cpu_usage": 100,
+            "memory_usage": 73.89143194189873,
+            "risk_score": 90.23692714616247,
+            "reason": "CPU overload (100.0%); Memory high (73.9%); Thread exhaustion",
+            "centrality": 0.6994414977136556
+          },
+          {
+            "name": "Cache DB",
+            "type": "database",
+            "cpu_usage": 63.41295791727939,
+            "memory_usage": 65.37223740448069,
+            "risk_score": 66.38226371182877,
+            "reason": "High CPU usage (63.4%); High error rate",
+            "centrality": 0.7331099625267082
+          }
+        ],
+        "cascading_failures": [
+          "Search Index",
+          "Notification Service",
+          "Mobile App",
+          "Frontend Application",
+          "Analytics Pipeline"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Auth Service (api)\n- CPU overload (100.0%); Memory high (73.9%); Thread exhaustion\n- Centrality score: 0.70 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 5 services affected: Search Index, Notification Service, Mobile App\n\n**Immediate Actions Required:**\n1. Scale API instances horizontally\n2. Implement circuit breakers for dependencies\n3. Add caching layer for frequent requests\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Auth Service: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Auth Service data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 13,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "external",
+            "queue"
+          ],
+          "time_context": "normal",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Memcached",
+            "type": "cache",
+            "cpu_usage": 91.94137842547617,
+            "memory_usage": 100,
+            "risk_score": 97.49913795395412,
+            "reason": "CPU overload (91.9%); Memory critical (100.0%); Hit rate decline",
+            "centrality": 0.700821552361127
+          }
+        ],
+        "cascading_failures": [
+          "User API",
+          "Session Manager",
+          "Search API",
+          "Profile API",
+          "Recommendation Engine"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Memcached (cache)\n- CPU overload (91.9%); Memory critical (100.0%); Hit rate decline\n- Centrality score: 0.70 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 5 services affected: User API, Session Manager, Search API\n\n**Immediate Actions Required:**\n1. Scale Memcached capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Memcached: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Memcached",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 9,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "compute",
+            "queue",
+            "database",
+            "api"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "REVENUE AT RISK - Customer transactions failing, immediate escalation required"
+        },
+        "bottlenecks": [
+          {
+            "name": "Notification Queue",
+            "type": "queue",
+            "cpu_usage": 81.24937379126365,
+            "memory_usage": 85.67439795211969,
+            "risk_score": 87.57355681696774,
+            "reason": "CPU overload (81.2%); Memory critical (85.7%); Scaling issues",
+            "centrality": 0.25078742152439615
+          }
+        ],
+        "cascading_failures": [
+          "Inventory System",
+          "File Upload Service",
+          "Email Service",
+          "Order Management",
+          "Notification Service"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Notification Queue (queue)\n- CPU overload (81.2%); Memory critical (85.7%); Scaling issues\n- Centrality score: 0.25 (medium impact component)\n\n**Business Impact:** REVENUE AT RISK - Customer transactions failing, immediate escalation required\n\n**Cascade Analysis:** 5 services affected: Inventory System, File Upload Service, Email Service\n\n**Immediate Actions Required:**\n1. Scale Notification Queue capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Notification Queue: Increase capacity by 100%",
+        "Optimize Notification Queue: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Notification Queue",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 8,
+          "critical_count": 1,
+          "service_types": [
+            "external",
+            "compute",
+            "api"
+          ],
+          "time_context": "normal",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "SMS Service",
+            "type": "external",
+            "cpu_usage": 100,
+            "memory_usage": 79.23782632317689,
+            "risk_score": 96.48788307675294,
+            "reason": "CPU overload (100.0%); Memory high (79.2%); Scaling issues",
+            "centrality": 0.6859653197241108
+          }
+        ],
+        "cascading_failures": [
+          "User Profile API",
+          "Recommendation Engine",
+          "Search Index",
+          "Authentication Service",
+          "Payment Processing",
+          "Analytics Pipeline"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: SMS Service (external)\n- CPU overload (100.0%); Memory high (79.2%); Scaling issues\n- Centrality score: 0.69 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 6 services affected: User Profile API, Recommendation Engine, Search Index\n\n**Immediate Actions Required:**\n1. Scale SMS Service capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale SMS Service: Increase capacity by 100%",
+        "Optimize SMS Service: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for SMS Service",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 93.6807537746858,
+          "total_services": 13,
+          "critical_count": 1,
+          "service_types": [
+            "compute",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Batch Processor",
+            "type": "compute",
+            "cpu_usage": 79.56803983781717,
+            "memory_usage": 89.39999939429451,
+            "risk_score": 84.6807537746858,
+            "reason": "High CPU usage (79.6%); Memory critical (89.4%); Performance degradation",
+            "centrality": 0.3172672513479673
+          }
+        ],
+        "cascading_failures": [
+          "Notification Service",
+          "Recommendation Engine",
+          "Authentication Service"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 93.7/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Batch Processor (compute)\n- High CPU usage (79.6%); Memory critical (89.4%); Performance degradation\n- Centrality score: 0.32 (medium impact component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 3 services affected: Notification Service, Recommendation Engine, Authentication Service\n\n**Immediate Actions Required:**\n1. Scale Batch Processor capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Batch Processor: Increase capacity by 100%",
+        "Optimize Batch Processor: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Batch Processor",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 55.796042836698604,
+          "total_services": 17,
+          "critical_count": 0,
+          "service_types": [
+            "database",
+            "compute",
+            "cache"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "User DB",
+            "type": "database",
+            "cpu_usage": 52.153646999802476,
+            "memory_usage": 51.58170626776287,
+            "risk_score": 55.796042836698604,
+            "reason": "Lock contention",
+            "centrality": 0.6678038735782571
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 55.8/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: User DB (database)\n- Lock contention\n- Centrality score: 0.67 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Immediate Actions Required:**\n1. Review database performance metrics\n2. Optimize query patterns and indexing\n3. Consider read replica for load distribution\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale User DB: Add 2-3 read replicas immediately",
+        "Optimize User DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 40.39678215379662,
+          "total_services": 16,
+          "critical_count": 0,
+          "service_types": [
+            "database",
+            "compute",
+            "api"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Minor performance impact - Optimization opportunity for better efficiency"
+        },
+        "bottlenecks": [
+          {
+            "name": "Search API",
+            "type": "api",
+            "cpu_usage": 48.04431483250889,
+            "memory_usage": 29.41504931842114,
+            "risk_score": 37.39678215379662,
+            "reason": "High error rate",
+            "centrality": 0.4640606203755576
+          }
+        ],
+        "cascading_failures": [
+          "Analytics Pipeline"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd27 **OPTIMIZATION NEEDED** - System health score: 40.4/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Search API (api)\n- High error rate\n- Centrality score: 0.46 (medium impact component)\n\n**Business Impact:** Minor performance impact - Optimization opportunity for better efficiency\n\n**Cascade Analysis:** 1 services affected: Analytics Pipeline\n\n**Immediate Actions Required:**\n1. Review API performance bottlenecks\n2. Optimize resource-intensive operations\n3. Add monitoring for response times\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Search API: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Search API data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 62.654015238045076,
+          "total_services": 14,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "database",
+            "external",
+            "queue"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "CDN Cache",
+            "type": "cache",
+            "cpu_usage": 29.495990632893324,
+            "memory_usage": 73.51044096769337,
+            "risk_score": 59.654015238045076,
+            "reason": "Memory high (73.5%); Eviction pressure",
+            "centrality": 0.334804888710189
+          }
+        ],
+        "cascading_failures": [
+          "Profile API"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 62.7/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: CDN Cache (cache)\n- Memory high (73.5%); Eviction pressure\n- Centrality score: 0.33 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 1 services affected: Profile API\n\n**Immediate Actions Required:**\n1. Scale CDN Cache capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale CDN Cache: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for CDN Cache",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 49.33925643581425,
+          "total_services": 8,
+          "critical_count": 0,
+          "service_types": [
+            "api",
+            "queue",
+            "external"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Minor performance impact - Optimization opportunity for better efficiency"
+        },
+        "bottlenecks": [
+          {
+            "name": "Task Queue",
+            "type": "queue",
+            "cpu_usage": 47.0287231460549,
+            "memory_usage": 48.93673747988283,
+            "risk_score": 46.33925643581425,
+            "reason": "",
+            "centrality": 0.2935075453439107
+          }
+        ],
+        "cascading_failures": [
+          "Notification Service"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd27 **OPTIMIZATION NEEDED** - System health score: 49.3/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Task Queue (queue)\n- \n- Centrality score: 0.29 (medium impact component)\n\n**Business Impact:** Minor performance impact - Optimization opportunity for better efficiency\n\n**Cascade Analysis:** 1 services affected: Notification Service\n\n**Immediate Actions Required:**\n1. Scale Task Queue capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Task Queue: Increase capacity by 100%",
+        "Optimize Task Queue: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Task Queue",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 52.443718468760146,
+          "total_services": 19,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "database",
+            "external",
+            "queue"
+          ],
+          "time_context": "normal",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "CDN",
+            "type": "external",
+            "cpu_usage": 46.59440188545514,
+            "memory_usage": 48.03509742758132,
+            "risk_score": 52.443718468760146,
+            "reason": "Performance degradation",
+            "centrality": 0.604675847096938
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 52.4/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: CDN (external)\n- Performance degradation\n- Centrality score: 0.60 (critical path component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Immediate Actions Required:**\n1. Scale CDN capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale CDN: Increase capacity by 100%",
+        "Optimize CDN: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for CDN",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 44.330972753156054,
+          "total_services": 12,
+          "critical_count": 0,
+          "service_types": [
+            "database",
+            "external",
+            "compute",
+            "cache"
+          ],
+          "time_context": "normal",
+          "business_impact": "Minor performance impact - Optimization opportunity for better efficiency"
+        },
+        "bottlenecks": [
+          {
+            "name": "ML Pipeline",
+            "type": "compute",
+            "cpu_usage": 46.9904333781844,
+            "memory_usage": 50.037966449392144,
+            "risk_score": 44.330972753156054,
+            "reason": "Resource contention",
+            "centrality": 0.3210401768225596
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\ud83d\udd27 **OPTIMIZATION NEEDED** - System health score: 44.3/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: ML Pipeline (compute)\n- Resource contention\n- Centrality score: 0.32 (medium impact component)\n\n**Business Impact:** Minor performance impact - Optimization opportunity for better efficiency\n\n**Immediate Actions Required:**\n1. Scale ML Pipeline capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale ML Pipeline: Increase capacity by 100%",
+        "Optimize ML Pipeline: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for ML Pipeline",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 78.25722576428463,
+          "total_services": 17,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "compute",
+            "queue"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Significant performance degradation - Customer experience impacted"
+        },
+        "bottlenecks": [
+          {
+            "name": "Cache DB",
+            "type": "database",
+            "cpu_usage": 72.49238443063234,
+            "memory_usage": 64.1009733697998,
+            "risk_score": 75.25722576428463,
+            "reason": "High CPU usage (72.5%); Connection exhaustion",
+            "centrality": 0.6702772883717573
+          }
+        ],
+        "cascading_failures": [
+          "Session Manager"
+        ]
+      },
+      "expected_analysis": "\ud83d\udea8 **HIGH RISK DETECTED** - System health score: 78.3/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Cache DB (database)\n- High CPU usage (72.5%); Connection exhaustion\n- Centrality score: 0.67 (critical path component)\n\n**Business Impact:** Significant performance degradation - Customer experience impacted\n\n**Cascade Analysis:** 1 services affected: Session Manager\n\n**Immediate Actions Required:**\n1. Scale database horizontally (add read replicas)\n2. Optimize slow queries and add proper indexing\n3. Implement connection pooling optimization\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Cache DB: Add 2-3 read replicas immediately",
+        "Optimize Cache DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 72.54067569246632,
+          "total_services": 12,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "database",
+            "compute",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Profile API",
+            "type": "api",
+            "cpu_usage": 76.64602047370992,
+            "memory_usage": 45.51960287031573,
+            "risk_score": 69.54067569246632,
+            "reason": "High CPU usage (76.6%)",
+            "centrality": 0.10122771278301486
+          }
+        ],
+        "cascading_failures": [
+          "Frontend Application"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 72.5/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Profile API (api)\n- High CPU usage (76.6%)\n- Centrality score: 0.10 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 1 services affected: Frontend Application\n\n**Immediate Actions Required:**\n1. Review API performance bottlenecks\n2. Optimize resource-intensive operations\n3. Add monitoring for response times\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Profile API: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Profile API data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 73.24196585611966,
+          "total_services": 10,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "external",
+            "compute",
+            "queue"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Redis Cache",
+            "type": "cache",
+            "cpu_usage": 58.71681371154718,
+            "memory_usage": 83.32824638638212,
+            "risk_score": 70.24196585611966,
+            "reason": "Memory high (83.3%)",
+            "centrality": 0.2209224137575514
+          }
+        ],
+        "cascading_failures": [
+          "Search API"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 73.2/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Redis Cache (cache)\n- Memory high (83.3%)\n- Centrality score: 0.22 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 1 services affected: Search API\n\n**Immediate Actions Required:**\n1. Scale Redis Cache capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Redis Cache: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Redis Cache",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 75.91379408699706,
+          "total_services": 13,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "database",
+            "queue"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Significant performance degradation - Customer experience impacted"
+        },
+        "bottlenecks": [
+          {
+            "name": "Task Queue",
+            "type": "queue",
+            "cpu_usage": 61.1147612111321,
+            "memory_usage": 78.00560620141938,
+            "risk_score": 72.91379408699706,
+            "reason": "High CPU usage (61.1%); Memory high (78.0%); Scaling issues",
+            "centrality": 0.5847485634730029
+          }
+        ],
+        "cascading_failures": [
+          "Email Service"
+        ]
+      },
+      "expected_analysis": "\ud83d\udea8 **HIGH RISK DETECTED** - System health score: 75.9/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Task Queue (queue)\n- High CPU usage (61.1%); Memory high (78.0%); Scaling issues\n- Centrality score: 0.58 (critical path component)\n\n**Business Impact:** Significant performance degradation - Customer experience impacted\n\n**Cascade Analysis:** 1 services affected: Email Service\n\n**Immediate Actions Required:**\n1. Scale Task Queue capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Task Queue: Increase capacity by 100%",
+        "Optimize Task Queue: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Task Queue",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 75.92392487270993,
+          "total_services": 12,
+          "critical_count": 0,
+          "service_types": [
+            "cache",
+            "compute",
+            "external",
+            "database",
+            "api"
+          ],
+          "time_context": "normal",
+          "business_impact": "Significant performance degradation - Customer experience impacted"
+        },
+        "bottlenecks": [
+          {
+            "name": "SMS Service",
+            "type": "external",
+            "cpu_usage": 64.73618254923258,
+            "memory_usage": 67.78197527549658,
+            "risk_score": 72.92392487270993,
+            "reason": "High CPU usage (64.7%); Scaling issues",
+            "centrality": 0.18192507895414575
+          }
+        ],
+        "cascading_failures": [
+          "Analytics Pipeline"
+        ]
+      },
+      "expected_analysis": "\ud83d\udea8 **HIGH RISK DETECTED** - System health score: 75.9/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: SMS Service (external)\n- High CPU usage (64.7%); Scaling issues\n- Centrality score: 0.18 (medium impact component)\n\n**Business Impact:** Significant performance degradation - Customer experience impacted\n\n**Cascade Analysis:** 1 services affected: Analytics Pipeline\n\n**Immediate Actions Required:**\n1. Scale SMS Service capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale SMS Service: Increase capacity by 100%",
+        "Optimize SMS Service: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for SMS Service",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 64.2507631372174,
+          "total_services": 12,
+          "critical_count": 0,
+          "service_types": [
+            "queue",
+            "cache",
+            "compute",
+            "api"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "Worker Nodes",
+            "type": "compute",
+            "cpu_usage": 50.90565643350122,
+            "memory_usage": 76.40057050759987,
+            "risk_score": 61.2507631372174,
+            "reason": "Memory high (76.4%); Scaling issues",
+            "centrality": 0.34086580587983834
+          }
+        ],
+        "cascading_failures": [
+          "Authentication Service"
+        ]
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 64.3/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Worker Nodes (compute)\n- Memory high (76.4%); Scaling issues\n- Centrality score: 0.34 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Cascade Analysis:** 1 services affected: Authentication Service\n\n**Immediate Actions Required:**\n1. Scale Worker Nodes capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Worker Nodes: Increase capacity by 100%",
+        "Optimize Worker Nodes: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Worker Nodes",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 95.64704786502598,
+          "total_services": 13,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "external",
+            "cache",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Analytics DB",
+            "type": "database",
+            "cpu_usage": 99.99115834188412,
+            "memory_usage": 81.26348496501004,
+            "risk_score": 86.64704786502598,
+            "reason": "CPU overload (100.0%); Memory high (81.3%); Lock contention",
+            "centrality": 0.6827572958529526
+          }
+        ],
+        "cascading_failures": [
+          "Order Management",
+          "Session Manager",
+          "User Profile API"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 95.6/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Analytics DB (database)\n- CPU overload (100.0%); Memory high (81.3%); Lock contention\n- Centrality score: 0.68 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 3 services affected: Order Management, Session Manager, User Profile API\n\n**Immediate Actions Required:**\n1. Scale database horizontally (add read replicas)\n2. Optimize slow queries and add proper indexing\n3. Implement connection pooling optimization\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Analytics DB: Add 2-3 read replicas immediately",
+        "Optimize Analytics DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 90.16409530924602,
+          "total_services": 19,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "compute",
+            "api"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "REVENUE AT RISK - Customer transactions failing, immediate escalation required"
+        },
+        "bottlenecks": [
+          {
+            "name": "Payment API",
+            "type": "api",
+            "cpu_usage": 71.71675715234457,
+            "memory_usage": 82.19342914549856,
+            "risk_score": 81.16409530924602,
+            "reason": "High CPU usage (71.7%); Memory high (82.2%); High error rate",
+            "centrality": 0.7964309300968246
+          }
+        ],
+        "cascading_failures": [
+          "Notification Service",
+          "Search Index",
+          "Analytics Pipeline"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 90.2/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Payment API (api)\n- High CPU usage (71.7%); Memory high (82.2%); High error rate\n- Centrality score: 0.80 (critical path component)\n\n**Business Impact:** REVENUE AT RISK - Customer transactions failing, immediate escalation required\n\n**Cascade Analysis:** 3 services affected: Notification Service, Search Index, Analytics Pipeline\n\n**Immediate Actions Required:**\n1. Scale API instances horizontally\n2. Implement circuit breakers for dependencies\n3. Add caching layer for frequent requests\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Payment API: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Payment API data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 96.55979879175142,
+          "total_services": 10,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "api",
+            "queue"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Redis Cache",
+            "type": "cache",
+            "cpu_usage": 71.35770618896629,
+            "memory_usage": 82.62857009027107,
+            "risk_score": 84.55979879175142,
+            "reason": "High CPU usage (71.4%); Memory high (82.6%)",
+            "centrality": 0.19023918426800057
+          }
+        ],
+        "cascading_failures": [
+          "Recommendation Engine",
+          "Profile API",
+          "User API",
+          "Search API"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 96.6/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Redis Cache (cache)\n- High CPU usage (71.4%); Memory high (82.6%)\n- Centrality score: 0.19 (medium impact component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 4 services affected: Recommendation Engine, Profile API, User API\n\n**Immediate Actions Required:**\n1. Scale Redis Cache capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Redis Cache: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Redis Cache",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 91.31676111582249,
+          "total_services": 14,
+          "critical_count": 1,
+          "service_types": [
+            "external",
+            "compute",
+            "queue"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "REVENUE AT RISK - Customer transactions failing, immediate escalation required"
+        },
+        "bottlenecks": [
+          {
+            "name": "Event Bus",
+            "type": "queue",
+            "cpu_usage": 81.93740342079938,
+            "memory_usage": 71.65707782978562,
+            "risk_score": 85.31676111582249,
+            "reason": "CPU overload (81.9%); Memory high (71.7%); Resource contention",
+            "centrality": 0.2979120270403599
+          }
+        ],
+        "cascading_failures": [
+          "Order Management",
+          "Notification Service"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 91.3/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Event Bus (queue)\n- CPU overload (81.9%); Memory high (71.7%); Resource contention\n- Centrality score: 0.30 (medium impact component)\n\n**Business Impact:** REVENUE AT RISK - Customer transactions failing, immediate escalation required\n\n**Cascade Analysis:** 2 services affected: Order Management, Notification Service\n\n**Immediate Actions Required:**\n1. Scale Event Bus capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Event Bus: Increase capacity by 100%",
+        "Optimize Event Bus: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Event Bus",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 87.87368496927444,
+          "total_services": 17,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "external",
+            "compute",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Significant performance degradation - Customer experience impacted"
+        },
+        "bottlenecks": [
+          {
+            "name": "Payment Gateway",
+            "type": "external",
+            "cpu_usage": 67.34775768634762,
+            "memory_usage": 91.48291369188507,
+            "risk_score": 81.87368496927444,
+            "reason": "High CPU usage (67.3%); Memory critical (91.5%)",
+            "centrality": 0.477593782912314
+          },
+          {
+            "name": "Image Processing",
+            "type": "compute",
+            "cpu_usage": 33.40427567532716,
+            "memory_usage": 37.65111851039248,
+            "risk_score": 40.617762314672966,
+            "reason": "Performance degradation",
+            "centrality": 0.6901930241275319
+          }
+        ],
+        "cascading_failures": [
+          "Authentication Service",
+          "Payment Processing"
+        ]
+      },
+      "expected_analysis": "\ud83d\udea8 **HIGH RISK DETECTED** - System health score: 87.9/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Payment Gateway (external)\n- High CPU usage (67.3%); Memory critical (91.5%)\n- Centrality score: 0.48 (medium impact component)\n\n**Business Impact:** Significant performance degradation - Customer experience impacted\n\n**Cascade Analysis:** 2 services affected: Authentication Service, Payment Processing\n\n**Immediate Actions Required:**\n1. Scale Payment Gateway capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Payment Gateway: Increase capacity by 100%",
+        "Optimize Payment Gateway: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Payment Gateway",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 97.60532582210641,
+          "total_services": 11,
+          "critical_count": 1,
+          "service_types": [
+            "api",
+            "compute",
+            "queue"
+          ],
+          "time_context": "normal",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Video Encoder",
+            "type": "compute",
+            "cpu_usage": 87.49391136917048,
+            "memory_usage": 77.6143987540751,
+            "risk_score": 91.60532582210641,
+            "reason": "CPU overload (87.5%); Memory high (77.6%); Scaling issues",
+            "centrality": 0.2078017186864134
+          },
+          {
+            "name": "Event Bus",
+            "type": "queue",
+            "cpu_usage": 42.837703337147424,
+            "memory_usage": 40.66535605188725,
+            "risk_score": 37.50470824969897,
+            "reason": "Resource contention",
+            "centrality": 0.3619978153295147
+          }
+        ],
+        "cascading_failures": [
+          "Authentication Service",
+          "Recommendation Engine"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 97.6/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Video Encoder (compute)\n- CPU overload (87.5%); Memory high (77.6%); Scaling issues\n- Centrality score: 0.21 (medium impact component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 2 services affected: Authentication Service, Recommendation Engine\n\n**Immediate Actions Required:**\n1. Scale Video Encoder capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Video Encoder: Increase capacity by 100%",
+        "Optimize Video Encoder: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Video Encoder",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 13,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Primary DB",
+            "type": "database",
+            "cpu_usage": 92.63546803289606,
+            "memory_usage": 91.11771849717738,
+            "risk_score": 98.83566633044063,
+            "reason": "CPU overload (92.6%); Memory critical (91.1%); Connection exhaustion",
+            "centrality": 0.34254958822438697
+          }
+        ],
+        "cascading_failures": [
+          "Authentication Service",
+          "Order Management",
+          "User Profile API",
+          "Session Manager"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Primary DB (database)\n- CPU overload (92.6%); Memory critical (91.1%); Connection exhaustion\n- Centrality score: 0.34 (medium impact component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 4 services affected: Authentication Service, Order Management, User Profile API\n\n**Immediate Actions Required:**\n1. Scale database horizontally (add read replicas)\n2. Optimize slow queries and add proper indexing\n3. Implement connection pooling optimization\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Primary DB: Add 2-3 read replicas immediately",
+        "Optimize Primary DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 16,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "api"
+          ],
+          "time_context": "normal",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Auth Service",
+            "type": "api",
+            "cpu_usage": 96.87846492240531,
+            "memory_usage": 84.97620811274089,
+            "risk_score": 91.34305047679186,
+            "reason": "CPU overload (96.9%); Memory high (85.0%); High error rate",
+            "centrality": 0.19664418727694638
+          }
+        ],
+        "cascading_failures": [
+          "Mobile App",
+          "Analytics Pipeline",
+          "Search Index"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Auth Service (api)\n- CPU overload (96.9%); Memory high (85.0%); High error rate\n- Centrality score: 0.20 (medium impact component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 3 services affected: Mobile App, Analytics Pipeline, Search Index\n\n**Immediate Actions Required:**\n1. Scale API instances horizontally\n2. Implement circuit breakers for dependencies\n3. Add caching layer for frequent requests\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Auth Service: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Auth Service data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 98.96793473932904,
+          "total_services": 19,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "external",
+            "compute",
+            "queue"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "REVENUE AT RISK - Customer transactions failing, immediate escalation required"
+        },
+        "bottlenecks": [
+          {
+            "name": "Redis Cache",
+            "type": "cache",
+            "cpu_usage": 75.66911765664356,
+            "memory_usage": 90.9549914877638,
+            "risk_score": 83.96793473932904,
+            "reason": "High CPU usage (75.7%); Memory critical (91.0%); Eviction pressure",
+            "centrality": 0.7540719464411764
+          }
+        ],
+        "cascading_failures": [
+          "User API",
+          "Recommendation Engine",
+          "Session Manager",
+          "Search API",
+          "Profile API"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 99.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Redis Cache (cache)\n- High CPU usage (75.7%); Memory critical (91.0%); Eviction pressure\n- Centrality score: 0.75 (critical path component)\n\n**Business Impact:** REVENUE AT RISK - Customer transactions failing, immediate escalation required\n\n**Cascade Analysis:** 5 services affected: User API, Recommendation Engine, Session Manager\n\n**Immediate Actions Required:**\n1. Scale Redis Cache capacity immediately\n2. Investigate cache service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Redis Cache: Increase memory allocation by 50%",
+        "Optimize eviction policy: Review LRU settings for better hit rates",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Redis Cache",
+        "Set up performance alerts for cache services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 20,
+          "critical_count": 1,
+          "service_types": [
+            "database",
+            "external",
+            "queue"
+          ],
+          "time_context": "peak_hours",
+          "business_impact": "REVENUE AT RISK - Customer transactions failing, immediate escalation required"
+        },
+        "bottlenecks": [
+          {
+            "name": "Event Bus",
+            "type": "queue",
+            "cpu_usage": 85.6192171709812,
+            "memory_usage": 83.56329361060514,
+            "risk_score": 93.7528517271807,
+            "reason": "CPU overload (85.6%); Memory high (83.6%); Performance degradation",
+            "centrality": 0.20797166721424984
+          }
+        ],
+        "cascading_failures": [
+          "Payment Processing",
+          "Order Management",
+          "Notification Service",
+          "Recommendation Engine",
+          "User Profile API"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Event Bus (queue)\n- CPU overload (85.6%); Memory high (83.6%); Performance degradation\n- Centrality score: 0.21 (medium impact component)\n\n**Business Impact:** REVENUE AT RISK - Customer transactions failing, immediate escalation required\n\n**Cascade Analysis:** 5 services affected: Payment Processing, Order Management, Notification Service\n\n**Immediate Actions Required:**\n1. Scale Event Bus capacity immediately\n2. Investigate queue service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Event Bus: Increase capacity by 100%",
+        "Optimize Event Bus: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Event Bus",
+        "Set up performance alerts for queue services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 8,
+          "critical_count": 2,
+          "service_types": [
+            "queue",
+            "cache",
+            "external",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Analytics Service",
+            "type": "external",
+            "cpu_usage": 84.51680177814926,
+            "memory_usage": 84.43369628459374,
+            "risk_score": 93.05735620875166,
+            "reason": "CPU overload (84.5%); Memory high (84.4%); Performance degradation",
+            "centrality": 0.512421312081035
+          },
+          {
+            "name": "Payment API",
+            "type": "api",
+            "cpu_usage": 79.54007220839107,
+            "memory_usage": 56.004298094905124,
+            "risk_score": 77.11988225294999,
+            "reason": "High CPU usage (79.5%); Thread exhaustion",
+            "centrality": 0.4935191693201484
+          }
+        ],
+        "cascading_failures": [
+          "Search Index",
+          "Payment Processing",
+          "Recommendation Engine",
+          "Notification Service",
+          "File Upload Service",
+          "Inventory System"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Analytics Service (external)\n- CPU overload (84.5%); Memory high (84.4%); Performance degradation\n- Centrality score: 0.51 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 6 services affected: Search Index, Payment Processing, Recommendation Engine\n\n**Immediate Actions Required:**\n1. Scale Analytics Service capacity immediately\n2. Investigate external service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Analytics Service: Increase capacity by 100%",
+        "Optimize Analytics Service: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Analytics Service",
+        "Set up performance alerts for external services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 100,
+          "total_services": 8,
+          "critical_count": 1,
+          "service_types": [
+            "cache",
+            "database",
+            "compute"
+          ],
+          "time_context": "normal",
+          "business_impact": "CRITICAL system failure - Major service disruption, customer impact severe"
+        },
+        "bottlenecks": [
+          {
+            "name": "Video Encoder",
+            "type": "compute",
+            "cpu_usage": 96.95880063770824,
+            "memory_usage": 78.37921938675925,
+            "risk_score": 95.28517545005417,
+            "reason": "CPU overload (97.0%); Memory high (78.4%); Performance degradation",
+            "centrality": 0.6318673081412995
+          }
+        ],
+        "cascading_failures": [
+          "Payment Processing",
+          "Analytics Pipeline",
+          "User Profile API"
+        ]
+      },
+      "expected_analysis": "\ud83d\udd25 **CRITICAL EMERGENCY** - System health score: 100.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Video Encoder (compute)\n- CPU overload (97.0%); Memory high (78.4%); Performance degradation\n- Centrality score: 0.63 (critical path component)\n\n**Business Impact:** CRITICAL system failure - Major service disruption, customer impact severe\n\n**Cascade Analysis:** 3 services affected: Payment Processing, Analytics Pipeline, User Profile API\n\n**Immediate Actions Required:**\n1. Scale Video Encoder capacity immediately\n2. Investigate compute service performance\n3. Implement monitoring and alerting\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Consider event-driven architecture for loose coupling\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Video Encoder: Increase capacity by 100%",
+        "Optimize Video Encoder: Review configuration and resource allocation",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement health checks and automated recovery for Video Encoder",
+        "Set up performance alerts for compute services",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 54.57170521004623,
+          "total_services": 14,
+          "critical_count": 0,
+          "service_types": [
+            "database",
+            "external",
+            "compute",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Moderate business impact - Service quality reduced, proactive action needed"
+        },
+        "bottlenecks": [
+          {
+            "name": "User DB",
+            "type": "database",
+            "cpu_usage": 51.258910019905215,
+            "memory_usage": 45.8854591216655,
+            "risk_score": 54.57170521004623,
+            "reason": "",
+            "centrality": 0.4958170379252429
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\u26a0\ufe0f **MEDIUM RISK** - System health score: 54.6/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: User DB (database)\n- \n- Centrality score: 0.50 (medium impact component)\n\n**Business Impact:** Moderate business impact - Service quality reduced, proactive action needed\n\n**Immediate Actions Required:**\n1. Review database performance metrics\n2. Optimize query patterns and indexing\n3. Consider read replica for load distribution\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale User DB: Add 2-3 read replicas immediately",
+        "Optimize User DB: Enable slow query logging and fix queries >100ms",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement Redis cache layer to reduce DB hits by 60-70%",
+        "Review database connection pool settings - increase max connections to 200",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    },
+    {
+      "input_data": {
+        "system_state": {
+          "risk_score": 48.034163653150884,
+          "total_services": 16,
+          "critical_count": 0,
+          "service_types": [
+            "queue",
+            "database",
+            "external",
+            "api"
+          ],
+          "time_context": "maintenance",
+          "business_impact": "Minor performance impact - Optimization opportunity for better efficiency"
+        },
+        "bottlenecks": [
+          {
+            "name": "Search API",
+            "type": "api",
+            "cpu_usage": 43.162947402669175,
+            "memory_usage": 42.46202115421434,
+            "risk_score": 48.034163653150884,
+            "reason": "Response time spikes",
+            "centrality": 0.37899604676170506
+          }
+        ],
+        "cascading_failures": []
+      },
+      "expected_analysis": "\ud83d\udd27 **OPTIMIZATION NEEDED** - System health score: 48.0/100\n\n**Root Cause Analysis:**\nPrimary bottleneck: Search API (api)\n- Response time spikes\n- Centrality score: 0.38 (medium impact component)\n\n**Business Impact:** Minor performance impact - Optimization opportunity for better efficiency\n\n**Immediate Actions Required:**\n1. Review API performance bottlenecks\n2. Optimize resource-intensive operations\n3. Add monitoring for response times\n\n**Architecture Recommendations:**\n- Implement observability stack (metrics, logs, traces)\n- Set up automated scaling based on performance thresholds",
+      "expected_recommendations": [
+        "Scale Search API: Deploy 2-3 additional instances behind load balancer",
+        "Add caching layer: Redis for Search API data (30min TTL)",
+        "Deploy APM monitoring (New Relic/DataDog) for real-time insights",
+        "Implement circuit breakers for external service calls",
+        "Set up auto-scaling triggers at 70% CPU threshold",
+        "Review system architecture for additional optimization opportunities"
+      ]
+    }
+  ]
+}

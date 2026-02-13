@@ -1,5 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import { LayoutDashboard, Network, PlayCircle, Activity } from 'lucide-react';
+import AIProviderSwitcher from './AIProviderSwitcher';
 
 const Layout = () => {
     return (
@@ -24,7 +25,8 @@ const Layout = () => {
                     <NavItem to="/app/incidents" icon={<Activity />} label="Incidents" />
                 </nav>
 
-                <div className="p-4 border-t border-white/10">
+                <div className="p-4 border-t border-white/10 space-y-3">
+                    <AIProviderSwitcher />
                     <div className="flex items-center gap-3 text-xs text-gray-400">
                         <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                         <span className="hidden lg:block">System Online</span>
