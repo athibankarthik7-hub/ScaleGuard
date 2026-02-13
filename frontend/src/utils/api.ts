@@ -30,6 +30,84 @@ export const api = {
         const response = await fetch(`${API_BASE_URL}/reset`, { method: 'POST' });
         return response.json();
     },
+    clearSystem: async () => {
+        const response = await fetch(`${API_BASE_URL}/clear`, { method: 'POST' });
+        return response.json();
+    },
+
+    // Custom System Input APIs
+    uploadCustomSystem: async (system: any) => {
+        const response = await fetch(`${API_BASE_URL}/system/custom`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(system)
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to upload system');
+        }
+        return response.json();
+    },
+    addNode: async (node: any) => {
+        const response = await fetch(`${API_BASE_URL}/system/nodes`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(node)
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to add node');
+        }
+        return response.json();
+    },
+    updateNode: async (nodeId: string, node: any) => {
+        const response = await fetch(`${API_BASE_URL}/system/nodes/${nodeId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(node)
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to update node');
+        }
+        return response.json();
+    },
+    deleteNode: async (nodeId: string) => {
+        const response = await fetch(`${API_BASE_URL}/system/nodes/${nodeId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to delete node');
+        }
+        return response.json();
+    },
+    addEdge: async (edge: any) => {
+        const response = await fetch(`${API_BASE_URL}/system/edges`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(edge)
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to add edge');
+        }
+        return response.json();
+    },
+    deleteEdge: async (source: string, target: string) => {
+        const response = await fetch(`${API_BASE_URL}/system/edges?source=${source}&target=${target}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to delete edge');
+        }
+        return response.json();
+    },
+    exportSystem: async () => {
+        const response = await fetch(`${API_BASE_URL}/system/export`);
+        return response.json();
+    },
 
     // AI Provider APIs
     getAIProviders: async () => {

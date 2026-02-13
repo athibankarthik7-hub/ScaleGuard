@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-from models import SystemGraph, SimulationConfig, RootCauseAnalysis
+from models import SystemGraph, SimulationConfig, RootCauseAnalysis, ServiceNode, DependencyEdge
 from mock_data import generate_mock_system
 from simulation import Simulator
 from graph import GraphAnalyzer
@@ -26,12 +26,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Global state for demo purposes
-current_system = generate_mock_system()
+# Global state - Start with empty system (user must input data)
+# Use POST /api/reset to load sample mock data
+current_system = SystemGraph(nodes=[], edges=[])
 simulator = Simulator()
 analyzer = GraphAnalyzer()
 
-# Initialize simulator with initial graph
+# Initialize simulator with empty graph
 simulator.build_graph(current_system.nodes, current_system.edges)
 
 @app.get("/")
@@ -48,20 +49,22 @@ def get_system_graph():
 
 @app.post("/api/simulate", response_model=SystemGraph)
 def run_simulation(config: SimulationConfig):
+    """Run traffic simulation on the current user-provided system"""
     global current_system
-    # In a real app, we might not want to permanently mutate the global state
-    # but for a prototype, this shows the "live" update effect well.
     
-    # 1. Reset to base state to apply growth fresh (optional, but keeps it clean)
-    # For now, let's just apply growth on top of current or reset?
-    # Let's reset to clean mock to handle "growth from baseline" logic
-    base_system = generate_mock_system()
-    simulator.build_graph(base_system.nodes, base_system.edges)
+    if len(current_system.nodes) == 0:
+        raise HTTPException(
+            status_code=400, 
+            detail="No system data to simulate. Please add nodes and edges first."
+        )
     
-    # 2. Run simulation
+    # Rebuild graph with current system before simulating
+    simulator.build_graph(current_system.nodes, current_system.edges)
+    
+    # Run simulation with given traffic growth factor
     simulated_graph = simulator.simulate_traffic(config)
     
-    # 3. Update global state for other consumers
+    # Update global state with simulated results
     current_system = simulated_graph
     
     return current_system
@@ -158,9 +161,160 @@ def get_ai_providers():
 
 @app.post("/api/reset")
 def reset_system():
+    """Reset system to sample mock data (for demo/testing purposes)"""
     global current_system
     current_system = generate_mock_system()
     simulator.build_graph(current_system.nodes, current_system.edges)
+    return current_system
+
+@app.post("/api/clear")
+def clear_system():
+    """Clear all nodes and edges (start fresh)"""
+    global current_system
+    current_system = SystemGraph(nodes=[], edges=[])
+    simulator.build_graph(current_system.nodes, current_system.edges)
+    return {"message": "System cleared", "nodes": 0, "edges": 0}
+
+# ============================================================================
+# USER INPUT / CUSTOM SYSTEM GRAPH ENDPOINTS
+# ============================================================================
+
+@app.post("/api/system/custom", response_model=SystemGraph)
+def upload_custom_system(system: SystemGraph):
+    """Upload a complete custom system graph to analyze"""
+    global current_system
+    
+    # Validate that all edges reference existing nodes
+    node_ids = {node.id for node in system.nodes}
+    for edge in system.edges:
+        if edge.source not in node_ids:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Edge source '{edge.source}' not found in nodes"
+            )
+        if edge.target not in node_ids:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Edge target '{edge.target}' not found in nodes"
+            )
+    
+    # Update the global system state
+    current_system = system
+    simulator.build_graph(current_system.nodes, current_system.edges)
+    
+    return current_system
+
+@app.post("/api/system/nodes", response_model=ServiceNode)
+def add_node(node: ServiceNode):
+    """Add a new node to the current system"""
+    global current_system
+    
+    # Check if node already exists
+    if any(n.id == node.id for n in current_system.nodes):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Node with id '{node.id}' already exists"
+        )
+    
+    current_system.nodes.append(node)
+    simulator.build_graph(current_system.nodes, current_system.edges)
+    
+    return node
+
+@app.put("/api/system/nodes/{node_id}", response_model=ServiceNode)
+def update_node(node_id: str, updated_node: ServiceNode):
+    """Update an existing node in the system"""
+    global current_system
+    
+    # Find and update the node
+    for i, node in enumerate(current_system.nodes):
+        if node.id == node_id:
+            # Preserve the node_id even if the update tries to change it
+            updated_node.id = node_id
+            current_system.nodes[i] = updated_node
+            simulator.build_graph(current_system.nodes, current_system.edges)
+            return updated_node
+    
+    raise HTTPException(status_code=404, detail=f"Node '{node_id}' not found")
+
+@app.delete("/api/system/nodes/{node_id}")
+def delete_node(node_id: str):
+    """Delete a node and all its associated edges from the system"""
+    global current_system
+    
+    # Find and remove the node
+    initial_count = len(current_system.nodes)
+    current_system.nodes = [n for n in current_system.nodes if n.id != node_id]
+    
+    if len(current_system.nodes) == initial_count:
+        raise HTTPException(status_code=404, detail=f"Node '{node_id}' not found")
+    
+    # Remove all edges connected to this node
+    current_system.edges = [
+        e for e in current_system.edges 
+        if e.source != node_id and e.target != node_id
+    ]
+    
+    simulator.build_graph(current_system.nodes, current_system.edges)
+    
+    return {"message": f"Node '{node_id}' deleted successfully"}
+
+@app.post("/api/system/edges", response_model=DependencyEdge)
+def add_edge(edge: DependencyEdge):
+    """Add a new edge (dependency) to the current system"""
+    global current_system
+    
+    # Validate that both nodes exist
+    node_ids = {node.id for node in current_system.nodes}
+    if edge.source not in node_ids:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Source node '{edge.source}' not found"
+        )
+    if edge.target not in node_ids:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Target node '{edge.target}' not found"
+        )
+    
+    # Check if edge already exists
+    if any(e.source == edge.source and e.target == edge.target 
+           for e in current_system.edges):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Edge from '{edge.source}' to '{edge.target}' already exists"
+        )
+    
+    current_system.edges.append(edge)
+    simulator.build_graph(current_system.nodes, current_system.edges)
+    
+    return edge
+
+@app.delete("/api/system/edges")
+def delete_edge(source: str, target: str):
+    """Delete an edge (dependency) from the system"""
+    global current_system
+    
+    # Find and remove the edge
+    initial_count = len(current_system.edges)
+    current_system.edges = [
+        e for e in current_system.edges 
+        if not (e.source == source and e.target == target)
+    ]
+    
+    if len(current_system.edges) == initial_count:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Edge from '{source}' to '{target}' not found"
+        )
+    
+    simulator.build_graph(current_system.nodes, current_system.edges)
+    
+    return {"message": f"Edge from '{source}' to '{target}' deleted successfully"}
+
+@app.get("/api/system/export", response_model=SystemGraph)
+def export_system():
+    """Export the current system graph as JSON (for saving/backup)"""
     return current_system
 
 # ============================================================================
