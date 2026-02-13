@@ -21,10 +21,14 @@ def generate_mock_system() -> SystemGraph:
             type=type,
             tier=tier,
             status="healthy",
-            cpu_usage=random.uniform(10, 30),
-            memory_usage=random.uniform(20, 40),
-            latency=random.uniform(5, 50),
-            rpm=random.randint(100, 1000)
+            cpu_usage=random.uniform(5, 25),  # Lower baseline CPU
+            memory_usage=random.uniform(15, 35),  # Lower baseline memory
+            latency=random.uniform(10, 80),
+            rpm=random.randint(50, 500),  # Lower baseline requests
+            error_rate=random.uniform(0.05, 1.0),  # Lower error rates
+            connection_pool_usage=random.uniform(10, 40) if type == "database" else 0.0,
+            queue_depth=random.randint(0, 100) if type in ["service", "external"] else 0,
+            centrality_score=0.0  # Will be calculated during simulation
         )
 
     # Create nodes
